@@ -11,5 +11,5 @@ Docker Hub Slack Bot notify a Slack channel when you push an image on your Docke
 ### Installation
 
   - Clone it,
-  - Add https://yourhost.tld/dockerHub.php in Docker Hub Webhooks settings,
+  - Add https://yourhost.tld/dockerHub.php?token=yoursecret in Docker Hub Webhooks settings,
   - Enjoy!
