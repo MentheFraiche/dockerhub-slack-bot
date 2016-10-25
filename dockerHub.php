@@ -15,6 +15,7 @@
  */
 
 // Slack stuff
+const SECRET           = '';
 const SLACK_WEBHOOK    = 'XXXXXXXXXXXXXXXXXXXXX';
 const SLACK_CHANNEL    = '#general';
 const SLACK_BOT_NAME   = 'Docker';
@@ -108,16 +109,19 @@ function postToDocker($callbackUrl, $code)
     return getUrl($callbackUrl, $json);
 }
 
-$json = file_get_contents('php://input');
-$docker = json_decode($json, true);
+if (SECRET == $_GET['token'])
+{
+    $json = file_get_contents('php://input');
+    $docker = json_decode($json, true);
 
-$fields = array(
-    'Tag' => array(
-        'name' => $docker['push_data']['tag'],
-        'url' => $docker['repository']['repo_url'] . '/tags/' . $docker['push_data']['tag'],
-    ),
-);
+    $fields = array(
+        'Tag' => array(
+            'name' => $docker['push_data']['tag'],
+            'url' => $docker['repository']['repo_url'] . '/tags/' . $docker['push_data']['tag'],
+        ),
+    );
 
-$response = postMessage('[' . $docker['repository']['repo_name'] . '] Image pushed by <https://hub.docker.com/u/' . $docker['push_data']['pusher'] . '|' . $docker['push_data']['pusher'] . '>', $fields);
+    $response = postMessage('[' . $docker['repository']['repo_name'] . '] Image pushed by <https://hub.docker.com/u/' . $docker['push_data']['pusher'] . '|' . $docker['push_data']['pusher'] . '>', $fields);
 
-postToDocker($docker['callback_url'], (true == $response ? 200 : 500));
+    postToDocker($docker['callback_url'], (true == $response ? 200 : 500));
+}
