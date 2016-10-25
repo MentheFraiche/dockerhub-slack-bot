@@ -1,6 +1,8 @@
 # Docker Hub Slack Bot
 
-Docker Hub slack Bot notify a Slack channel when you push an image on your Docker Hub repository.
+![Docker](http://i.imgur.com/0QBDbV0.png)
+
+Docker Hub Slack Bot notify a Slack channel when you push an image on your Docker Hub repository.
 
 ### Requirements
 
